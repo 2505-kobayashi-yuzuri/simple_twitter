@@ -69,9 +69,8 @@ public class SignUpServlet extends HttpServlet {
         new UserService().insert(user);
         response.sendRedirect("./");
     }
-
+    //引数requestでサーブレットから受け取った値をUserに格納
     private User getUser(HttpServletRequest request) throws IOException, ServletException {
-
     	//ログファイルに書き込む
 	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
         " : " + new Object(){}.getClass().getEnclosingMethod().getName());
