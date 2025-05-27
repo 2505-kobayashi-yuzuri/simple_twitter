@@ -85,9 +85,8 @@ public class UserService {
 			close(connection);
 		}
 	}
+
 	public User select(int userId) {
-
-
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
@@ -110,6 +109,27 @@ public class UserService {
 			close(connection);
 		}
 	}
+	//アカウント重複の確認を受け渡すメソッド
+	public User select(String account) {
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+			User user = new UserDao().select(connection, account);
+			commit(connection);
+
+			return user;
+		} catch (RuntimeException e) {
+			rollback(connection);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
+
 	public void update(User user) {
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +

@@ -85,7 +85,6 @@ public class UserMessageDao {
 				message.setAccount(rs.getString("account"));
 				message.setName(rs.getString("name"));
 				message.setCreatedDate(rs.getTimestamp("created_date"));
-
 				messages.add(message);
 			}
 			return messages;

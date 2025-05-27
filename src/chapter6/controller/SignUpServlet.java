@@ -85,8 +85,6 @@ public class SignUpServlet extends HttpServlet {
 	}
 
 	private boolean isValid(User user, List<String> errorMessages) {
-
-
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 		//入力された値がtureかfolseか。falseならエラー処理
@@ -104,7 +102,10 @@ public class SignUpServlet extends HttpServlet {
 		} else if (20 < account.length()) {
 			errorMessages.add("アカウント名は20文字以下で入力してください");
 		}
-
+		User userAccount = new UserService().select(user.getAccount());
+		if (userAccount != null && userAccount.getId() != user.getId()) {
+			errorMessages.add("そのアカウントは既に使われています");
+		}
 		if (StringUtils.isEmpty(password)) {
 			errorMessages.add("パスワードを入力してください");
 		}
