@@ -103,7 +103,7 @@ public class SignUpServlet extends HttpServlet {
 			errorMessages.add("アカウント名は20文字以下で入力してください");
 		}
 		User userAccount = new UserService().select(user.getAccount());
-		if (userAccount != null && userAccount.getId() != user.getId()) {
+		if (userAccount != null) {
 			errorMessages.add("そのアカウントは既に使われています");
 		}
 		if (StringUtils.isEmpty(password)) {

@@ -117,7 +117,6 @@ public class UserService {
 			connection = getConnection();
 			User user = new UserDao().select(connection, account);
 			commit(connection);
-
 			return user;
 		} catch (RuntimeException e) {
 			rollback(connection);
