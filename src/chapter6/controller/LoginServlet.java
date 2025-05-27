@@ -19,52 +19,52 @@ import chapter6.service.UserService;
 @WebServlet(urlPatterns = { "/login" })
 public class LoginServlet extends HttpServlet {
 
-    /**
-    * ロガーインスタンスの生成
-    */
-    Logger log = Logger.getLogger("twitter");
+	/**
+	 * ロガーインスタンスの生成
+	 */
+	Logger log = Logger.getLogger("twitter");
 
-    /**
-    * デフォルトコンストラクタ
-    * アプリケーションの初期化を実施する。
-    */
-    public LoginServlet() {
-        InitApplication application = InitApplication.getInstance();
-        application.init();
+	/**
+	 * デフォルトコンストラクタ
+	 * アプリケーションの初期化を実施する。
+	 */
+	public LoginServlet() {
+		InitApplication application = InitApplication.getInstance();
+		application.init();
 
-    }
+	}
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+	@Override
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 
-	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
-        " : " + new Object(){}.getClass().getEnclosingMethod().getName());
-	  //ログイン画面のJSPに遷移
-        request.getRequestDispatcher("login.jsp").forward(request, response);
-    }
+		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
+				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
+		//ログイン画面のJSPに遷移
+		request.getRequestDispatcher("login.jsp").forward(request, response);
+	}
 
-    @Override
-    protected void doPost(HttpServletRequest request, HttpServletResponse response)
-            throws IOException, ServletException {
+	@Override
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws IOException, ServletException {
 
-	  log.info(new Object(){}.getClass().getEnclosingClass().getName() +
-        " : " + new Object(){}.getClass().getEnclosingMethod().getName());
-	  //ログインIDとパスワードをJSPから受け取る
-        String accountOrEmail = request.getParameter("accountOrEmail");
-        String password = request.getParameter("password");
-        //serviceからユーザー情報を取得できればトップ画面に、でなければエラー
-        User user = new UserService().select(accountOrEmail, password);
-        if (user == null) {
-            List<String> errorMessages = new ArrayList<String>();
-            errorMessages.add("ログインに失敗しました");
-            request.setAttribute("errorMessages", errorMessages);
-            request.getRequestDispatcher("login.jsp").forward(request, response);
-            return;
-        }
-        //セッションスコープにログイン情報をセット
-        HttpSession session = request.getSession();
-        session.setAttribute("loginUser", user);
-        response.sendRedirect("./");
-    }
+		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
+				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
+		//ログインIDとパスワードをJSPから受け取る
+		String accountOrEmail = request.getParameter("accountOrEmail");
+		String password = request.getParameter("password");
+		//serviceからユーザー情報を取得できればトップ画面に、でなければエラー
+		User user = new UserService().select(accountOrEmail, password);
+		if (user == null) {
+			List<String> errorMessages = new ArrayList<String>();
+			errorMessages.add("ログインに失敗しました");
+			request.setAttribute("errorMessages", errorMessages);
+			request.getRequestDispatcher("login.jsp").forward(request, response);
+			return;
+		}
+		//セッションスコープにログイン情報をセット
+		HttpSession session = request.getSession();
+		session.setAttribute("loginUser", user);
+		response.sendRedirect("./");
+	}
 }
