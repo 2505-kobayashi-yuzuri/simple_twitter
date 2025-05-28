@@ -37,35 +37,34 @@ public class MessageSrevlet extends HttpServlet {
 		application.init();
 
 	}
-
-
+	//メッセージをPOSTから受け取り処理するメソッド
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
-
+		//セッションスコープの宣言（セッションを閉じない限り保持）
 		HttpSession session = request.getSession();
 		List<String> errorMessages = new ArrayList<String>();
-
+		//isVAlidがfalseならif文で処理を終える
 		String text = request.getParameter("text");
 		if (!isValid(text, errorMessages)) {
 			session.setAttribute("errorMessages", errorMessages);
 			response.sendRedirect("./");
 			return;
 		}
-
+		//Messageクラスからメッセージ情報を受け取るインスタンスを生成
 		Message message = new Message();
 		message.setText(text);
-
+		//Userからユーザー情報（loginUser）を引数で保持してuser変数に格納
 		User user = (User) session.getAttribute("loginUser");
 		message.setUserId(user.getId());
-
+		//messageServiceクラスのInsertメソッドを呼び出し（messageを渡す）
 		new MessageService().insert(message);
-		response.sendRedirect("./");
+		response.sendRedirect("./");//top.jspに戻る
 	}
-
+	//エラー処理のバリデーションとエラーlistを作成メソッド
 	private boolean isValid(String text, List<String> errorMessages) {
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +

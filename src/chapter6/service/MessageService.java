@@ -33,15 +33,16 @@ public class MessageService {
 		application.init();
 
 	}
-	//つぶやき情報を受け渡すメソッド
+	//message情報すべてをmessageServletから受け取り、Daoに流すメソッド
+	//ここを参考にdeleteメソッドを作成
 	public void insert(Message message) {
-
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 		" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
 		Connection connection = null;
 		try {
 			connection = getConnection();
+			//受け取った値をmessageDaoに受け渡す
 			new MessageDao().insert(connection, message);
 			commit(connection);
 		} catch (RuntimeException e) {
@@ -75,6 +76,30 @@ public class MessageService {
 			commit(connection);
 
 			return messages;
+		} catch (RuntimeException e) {
+			rollback(connection);
+			log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
+			throw e;
+		} catch (Error e) {
+			rollback(connection);
+			log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
+			throw e;
+		} finally {
+			close(connection);
+		}
+	}
+
+	public void delete(String messageId) {
+
+		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
+				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
+
+		Connection connection = null;
+		try {
+			connection = getConnection();
+			int id = Integer.parseInt(messageId);
+			new MessageDao().delete(connection, id);
+			commit(connection);
 		} catch (RuntimeException e) {
 			rollback(connection);
 			log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);

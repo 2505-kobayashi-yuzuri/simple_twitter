@@ -13,23 +13,36 @@
 <body>
 	<div class="main-contents">
 		<div class="header">
+		<!--servletのloginUser=Userに値がないif文-->
 			<c:if test="${ empty loginUser }">
 				<a href="login">ログイン</a>
 				<a href="signup">登録する</a>
 			</c:if>
+			<!--servletのloginUser=Userに値があるif文-->
 			<c:if test="${ not empty loginUser }">
 				<a href="./">ホーム</a>
 				<a href="setting">設定</a>
 				<a href="logout">ログアウト</a>
 			</c:if>
 		</div>
+		<!--値がある場合は名前とアカウント名と説明が表示-->
 		<c:if test="${ not empty loginUser }">
 			<div class="profile">
-			<div class="name"><h2><c:out value="${loginUser.name}" /></h2></div>
-			<div class="account">@<c:out value="${loginUser.account}" /></div>
-			<div class="description"><c:out value="${loginUser.description}" /></div>
+				<div class="name">
+					<h2>
+						<c:out value="${loginUser.name}" />
+					</h2>
+				</div>
+				<div class="account">
+					@
+					<c:out value="${loginUser.account}" />
+				</div>
+				<div class="description">
+					<c:out value="${loginUser.description}" />
+				</div>
 			</div>
 		</c:if>
+		<!--仮-->
 		<c:if test="${ not empty errorMessages }">
 			<div class="errorMessages">
 				<ul>
@@ -40,7 +53,7 @@
 			</div>
 			<c:remove var="errorMessages" scope="session" />
 		</c:if>
-		<!-- メッセージ入力画面を表示する -->
+		<!-- ログイン中はつぶやくテキストボックスとボタンを表示 -->
 		<div class="form-area">
 			<c:if test="${ isShowMessageForm }">
 				<form action="message" method="post">
@@ -59,8 +72,7 @@
 							href="./?user_id=<c:out value="${message.userId}"/> "> <c:out
 									value="${message.account}" />
 						</a>
-						</span> 
-						<span class="name"><c:out value="${message.name}" /> </span>
+						</span> <span class="name"><c:out value="${message.name}" /> </span>
 					</div>
 					<div class="text">
 						<c:out value="${message.text}" />
@@ -68,6 +80,18 @@
 					<div class="date">
 						<fmt:formatDate value="${message.createdDate}"
 							pattern="yyyy/MM/dd HH:mm:ss" />
+					</div>
+
+					<!-- 削除・編集ボタンの追加 -->
+					<div class = "submitMassage">
+						<form action="deleteMessage" method="post">
+							<input name="messsage_id" value="${message.id}" id="message_id" type="hidden"/>
+							<input type="submit" value="削除">
+						</form>
+						<form action="editMessage" method="post">
+							<input name="id" value="${message.id}" id="id" type="hidden"/>
+							<input type="submit" value="編集">
+						</form>
 					</div>
 				</div>
 			</c:forEach>
