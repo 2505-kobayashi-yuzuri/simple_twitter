@@ -85,7 +85,7 @@
 					<!-- 削除・編集ボタンの追加 -->
 					<div class = "submitMassage">
 						<form action="deleteMessage" method="post">
-							<input name="messsage_id" value="${message.id}" id="message_id" type="hidden"/>
+							<input name="message_id" value="${message.id}" id="message_id" type="hidden"/>
 							<input type="submit" value="削除">
 						</form>
 						<form action="editMessage" method="post">
