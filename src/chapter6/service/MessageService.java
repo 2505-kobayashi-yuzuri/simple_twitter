@@ -89,7 +89,7 @@ public class MessageService {
 		}
 	}
 
-	public void delete(String messageId) {
+	public void delete(int messageId) {
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
@@ -97,8 +97,7 @@ public class MessageService {
 		Connection connection = null;
 		try {
 			connection = getConnection();
-			int id = Integer.parseInt(messageId);
-			new MessageDao().delete(connection, id);
+			new MessageDao().delete(connection, messageId);
 			commit(connection);
 		} catch (RuntimeException e) {
 			rollback(connection);

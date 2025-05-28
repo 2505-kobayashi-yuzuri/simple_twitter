@@ -8,9 +8,7 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 
-import chapter6.beans.Message;
 import chapter6.logging.InitApplication;
 import chapter6.service.MessageService;
 
@@ -37,13 +35,9 @@ public class DeleteMessageServlet extends HttpServlet{
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
-		HttpSession session = request.getSession();
-		String id = request.getParameter("messsage_id");
-		Message message = new Message();
-		message.setId(id);
-
-		session.setAttribute("message_id", message);
-		new MessageService().delete(message);
+		String strMessageId = request.getParameter("message_id");
+		int intMessageId = Integer.parseInt(strMessageId);
+		new MessageService().delete(intMessageId);
 		response.sendRedirect("./");//top.jspに戻る
 	}
 }
