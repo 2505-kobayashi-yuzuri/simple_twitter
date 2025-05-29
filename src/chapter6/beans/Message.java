@@ -32,7 +32,7 @@ public class Message implements Serializable {
 	public Date getCreatedDate() {
 		return createdDate;
 	}
-	public void setcreatedDate(Date createdDate) {
+	public void setCreatedDate(Date createdDate) {
 		this.createdDate = createdDate;
 	}
 	public Date getUpdatedDate() {

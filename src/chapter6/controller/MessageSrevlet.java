@@ -75,7 +75,6 @@ public class MessageSrevlet extends HttpServlet {
 		} else if (140 < text.length()) {
 			errorMessages.add("140文字以下で入力してください");
 		}
-
 		if (errorMessages.size() != 0) {
 			return false;
 		}

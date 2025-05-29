@@ -65,13 +65,14 @@
 		</div>
 		<!-- メッセージを表示する -->
 		<div class="messages">
+			<!-- メッセージの数だけ繰り返す -->
 			<c:forEach items="${messages}" var="message">
 				<div class="message">
 					<div class="account-name">
-						<span class="account"> <a
-							href="./?user_id=<c:out value="${message.userId}"/> "> <c:out
-									value="${message.account}" />
-						</a>
+						<span class="account">
+							<a href="./?user_id=<c:out value="${message.userId}"/> ">
+								<c:out value="${message.account}" />
+							</a>
 						</span> <span class="name"><c:out value="${message.name}" /> </span>
 					</div>
 					<div class="text">
@@ -83,16 +84,18 @@
 					</div>
 
 					<!-- 削除・編集ボタンの追加 -->
+					<c:if test="${ not empty loginUser }">
 					<div class = "submitMassage">
 						<form action="deleteMessage" method="post">
-							<input name="message_id" value="${message.id}" id="message_id" type="hidden"/>
+							<input name="deleteMessage_id" value="${message.id}" id="deleteMessage_id" type="hidden"/>
 							<input type="submit" value="削除">
 						</form>
-						<form action="editMessage" method="post">
-							<input name="id" value="${message.id}" id="id" type="hidden"/>
+						<form action="edit" method="get">
+							<input name="editMessage_id" value="${message.id}" id="editMessage_id" type="hidden"/>
 							<input type="submit" value="編集">
 						</form>
 					</div>
+					</c:if>
 				</div>
 			</c:forEach>
 		</div>
