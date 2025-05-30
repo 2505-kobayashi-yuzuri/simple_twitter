@@ -56,12 +56,9 @@ public class EditServlet extends HttpServlet {
 			response.sendRedirect("./");
 			return;
 		}
-		if (errorMessageId != null) {
-
 		request.setAttribute("editMessage", message);
 		//編集画面に遷移
 		request.getRequestDispatcher("edit.jsp").forward(request, response);
-		}
 	}
 
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
@@ -73,13 +70,13 @@ public class EditServlet extends HttpServlet {
 		List<String> errorMessages = new ArrayList<String>();
 		String text = request.getParameter("text");
 		String strMessageId = request.getParameter("editMessage_id");
-		int id = Integer.parseInt(strMessageId);
-
 		if (!isValid(text, errorMessages)) {
 			request.setAttribute("errorMessages", errorMessages);
 			request.getRequestDispatcher("edit.jsp").forward(request, response);
 			return;
 		}
+		int id = Integer.parseInt(strMessageId);
+
 		//Messageクラスからメッセージ情報を受け取るインスタンスを生成
 		Message message = new Message();
 		message.setText(text);
