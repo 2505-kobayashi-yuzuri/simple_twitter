@@ -54,6 +54,7 @@ public class MessageSrevlet extends HttpServlet {
 			response.sendRedirect("./");
 			return;
 		}
+
 		//Messageクラスからメッセージ情報を受け取るインスタンスを生成
 		Message message = new Message();
 		message.setText(text);

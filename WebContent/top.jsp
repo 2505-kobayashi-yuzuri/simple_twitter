@@ -53,6 +53,12 @@
 			</div>
 			<c:remove var="errorMessages" scope="session" />
 		</c:if>
+		<!-- メッセージのIDが不正だったときのエラー処理 -->
+		<c:if test="${ not empty errorMessageId }">
+			<div class="errorMessages">
+				<c:out value="${errorMessageId}" />
+			</div>
+		</c:if>
 
 		<!-- ログイン中はつぶやくテキストボックスとボタンを表示 -->
 		<div class="form-area">
@@ -85,7 +91,7 @@
 					</div>
 
 					<!-- 削除・編集ボタンの追加 -->
-					<c:if test="${ not empty loginUser }">
+					<c:if test="${ not empty  loginUser }">
 					<div class = "submitMassage">
 						<form action="deleteMessage" method="post">
 							<input name="deleteMessage_id" value="${message.id}" id="deleteMessage_id" type="hidden"/>
