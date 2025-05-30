@@ -83,7 +83,7 @@
 						</span> <span class="name"><c:out value="${message.name}" /> </span>
 					</div>
 					<div class="text">
-						<c:out value="${message.text}" />
+						<pre><c:out value="${message.text}" /></pre>
 					</div>
 					<div class="date">
 						<fmt:formatDate value="${message.createdDate}"
@@ -91,17 +91,17 @@
 					</div>
 
 					<!-- 削除・編集ボタンの追加 -->
-					<c:if test="${ not empty  loginUser }">
-					<div class = "submitMassage">
-						<form action="deleteMessage" method="post">
-							<input name="deleteMessage_id" value="${message.id}" id="deleteMessage_id" type="hidden"/>
-							<input type="submit" value="削除">
-						</form>
-						<form action="edit" method="get">
-							<input name="editMessage_id" value="${message.id}" id="editMessage_id" type="hidden"/>
-							<input type="submit" value="編集">
-						</form>
-					</div>
+					<c:if test="${loginUser.id == message.userId}">
+						<div class = "submitMassage">
+							<form action="deleteMessage" method="post">
+								<input name="deleteMessage_id" value="${message.id}" id="deleteMessage_id" type="hidden"/>
+								<input type="submit" value="削除">
+							</form>
+							<form action="edit" method="get">
+								<input name="editMessage_id" value="${message.id}" id="editMessage_id" type="hidden"/>
+								<input type="submit" value="編集">
+							</form>
+						</div>
 					</c:if>
 				</div>
 			</c:forEach>
