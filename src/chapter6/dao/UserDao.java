@@ -181,7 +181,7 @@ public class UserDao {
 
 			ps = connection.prepareStatement(sql);
 			ps.setString(1, account);
-			
+
 			ResultSet rs = ps.executeQuery();
 			List<User> users = toUsers(rs);
 			if (users.isEmpty()) {
@@ -213,7 +213,7 @@ public class UserDao {
 				sql.append("    password = ?, ");
 			}
 			sql.append("    description = ?, ");
-			sql.append("    updated_date = CURRENT_TIMESTAMP ");
+			sql.append("    updated_date = UPDATE_TIMESTAMP ");
 			sql.append("WHERE id = ?");
 
 			ps = connection.prepareStatement(sql.toString());

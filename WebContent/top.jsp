@@ -53,6 +53,7 @@
 			</div>
 			<c:remove var="errorMessages" scope="session" />
 		</c:if>
+
 		<!-- ログイン中はつぶやくテキストボックスとボタンを表示 -->
 		<div class="form-area">
 			<c:if test="${ isShowMessageForm }">
