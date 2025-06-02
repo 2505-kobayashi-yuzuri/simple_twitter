@@ -25,7 +25,7 @@
 		<form action="signup" method="post">
 			<br /> <label for="name">名前</label>
 			<!-- nameタグでサーブレットの戻り値を設定、idは値の受け渡しに関係なし -->
-			<input name="name" id="name" />（名前はあなたの公開プロフィールに表示されます）<br /> <label
+			<input name="name" id="name" />（名前はあなたの公開プロフィールに表示されます） <br /> <label
 				for="account">アカウント名</label> <input name="account" id="account" />
 			<br /> <label for="password">パスワード</label> <input name="password"
 				type="password" id="password" /> <br /> <label for="email">メールアドレス</label>

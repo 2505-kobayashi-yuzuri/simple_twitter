@@ -6,6 +6,8 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
@@ -101,7 +103,8 @@ public class MessageDao {
 			sql.append(" UPDATE messages ");
 			sql.append(" SET ");
 			sql.append(" text = ?,");
-			sql.append(" created_date = CURRENT_TIMESTAMP ");
+			//updateに変える
+			sql.append(" updated_date = CURRENT_TIMESTAMP ");
 			sql.append(" WHERE ");
 			sql.append("    id = ? ");
 
@@ -133,8 +136,13 @@ public class MessageDao {
 			ps.setInt(1, editMessageId);
 
 			ResultSet rs = ps.executeQuery();
-			Message message = toMessage(rs);
-			return message;
+			//0件だった場合だったら null
+			List<Message> messages = toMessage(rs);
+			if (messages.isEmpty()) {
+				return null;
+			} else {
+				return messages.get(0);
+			}
 		} catch (SQLException e) {
 			log.log(Level.SEVERE, new Object(){}.getClass().getEnclosingClass().getName() + " : " + e.toString(), e);
 			throw new SQLRuntimeException(e);
@@ -142,21 +150,22 @@ public class MessageDao {
 			close(ps);
 		}
 	}
-
-	private Message toMessage(ResultSet rs) throws SQLException {
+	//list型でいい→emptyを使いたい
+	private List<Message> toMessage(ResultSet rs) throws SQLException {
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
-
+		List<Message> messages = new ArrayList<Message>();
 		try {
-			Message message = new Message();
 			while (rs.next()) {
+				Message message = new Message();
 				message.setId(rs.getInt("id"));
 				message.setText(rs.getString("text"));
 				message.setUserId(rs.getInt("user_id"));
 				message.setCreatedDate(rs.getTimestamp("created_date"));
 				message.setUpdatedDate(rs.getTimestamp("updated_date"));
+				messages.add(message);
 			}
-			return message;
+			return messages;
 		} finally {
 			close(rs);
 		}

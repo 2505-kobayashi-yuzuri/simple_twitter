@@ -11,7 +11,26 @@
 </head>
 <body>
 	<div class="main-contents">
-
+	<div class="header">
+				<a href="./">ホーム</a>
+				<a href="setting">設定</a>
+				<a href="logout">ログアウト</a>
+		</div>
+		<div class="profile">
+				<div class="name">
+					<h2>
+						<c:out value="${loginUser.name}" />
+					</h2>
+				</div>
+				<div class="account">
+					@
+					<c:out value="${loginUser.account}" />
+				</div>
+				<div class="description">
+					<c:out value="${loginUser.description}" />
+				</div>
+			</div>
+	<!-- プロフィール、ヘッダーの -->
 		<c:if test="${ not empty errorMessages }">
 			<div class="errorMessages">
 				<ul>
