@@ -75,6 +75,7 @@ public class EditServlet extends HttpServlet {
 		String strMessageId = request.getParameter("editMessage_id");
 		if (!isValid(text, errorMessages)) {
 			request.setAttribute("errorMessages", errorMessages);
+			request.setAttribute("errorText", text);
 			request.getRequestDispatcher("edit.jsp").forward(request, response);
 			return;
 		}
