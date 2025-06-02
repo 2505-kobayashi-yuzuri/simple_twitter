@@ -52,7 +52,7 @@
 				<a href="./">戻る</a>
 			</form>
 		</div>
-		<div class="copyright">Copyright(c)Your Name</div>
+		<div class="copyright">Copyright(c)Kobayashi yuzuri</div>
 	</div>
 </body>
 </html>

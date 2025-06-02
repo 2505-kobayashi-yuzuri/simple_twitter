@@ -34,7 +34,7 @@
 			<br /> <input type="submit" value="登録" /> <br /> <a href="./">戻る</a>
 		</form>
 
-		<div class="copyright">Copyright(c)Your Name</div>
+		<div class="copyright">Copyright(c)Kobayashi Yuzuri</div>
 	</div>
 </body>
 </html>
