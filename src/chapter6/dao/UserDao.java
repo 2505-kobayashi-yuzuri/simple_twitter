@@ -63,10 +63,8 @@ public class UserDao {
 			sql.append("    CURRENT_TIMESTAMP, ");  // created_date
 			sql.append("    CURRENT_TIMESTAMP ");   // updated_date
 			sql.append(")");
-
 			//作成したSQL文をメソッドに引数で渡す
 			ps = connection.prepareStatement(sql.toString());
-
 			ps.setString(1, user.getAccount());
 			ps.setString(2, user.getName());
 			ps.setString(3, user.getEmail());
@@ -91,13 +89,10 @@ public class UserDao {
 			String sql = "SELECT * FROM users WHERE (account = ? OR email = ?) AND password = ?";
 
 			ps = connection.prepareStatement(sql);
-
 			ps.setString(1, accountOrEmail);
 			ps.setString(2, accountOrEmail);
 			ps.setString(3, password);
-
 			ResultSet rs = ps.executeQuery();
-
 			List<User> users = toUsers(rs);
 			if (users.isEmpty()) {
 				return null;
@@ -133,7 +128,6 @@ public class UserDao {
 				user.setDescription(rs.getString("description"));
 				user.setCreatedDate(rs.getTimestamp("created_date"));
 				user.setUpdatedDate(rs.getTimestamp("updated_date"));
-
 				users.add(user);
 			}
 			return users;
@@ -149,13 +143,9 @@ public class UserDao {
 		PreparedStatement ps = null;
 		try {
 			String sql = "SELECT * FROM users WHERE id = ?";
-
 			ps = connection.prepareStatement(sql);
-
 			ps.setInt(1, id);
-
 			ResultSet rs = ps.executeQuery();
-
 			List<User> users = toUsers(rs);
 			if (users.isEmpty()) {
 				return null;

@@ -130,7 +130,7 @@ public class MessageDao {
 			sql.append("WHERE id = ? ");
 
 			ps = connection.prepareStatement(sql.toString());
-				ps.setInt(1, editMessageId);
+			ps.setInt(1, editMessageId);
 
 			ResultSet rs = ps.executeQuery();
 			Message message = toMessage(rs);
@@ -147,15 +147,15 @@ public class MessageDao {
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
-			try {
-				Message message = new Message();
-				while (rs.next()) {
+		try {
+			Message message = new Message();
+			while (rs.next()) {
 				message.setId(rs.getInt("id"));
 				message.setText(rs.getString("text"));
 				message.setUserId(rs.getInt("user_id"));
 				message.setCreatedDate(rs.getTimestamp("created_date"));
 				message.setUpdatedDate(rs.getTimestamp("updated_date"));
-				}
+			}
 			return message;
 		} finally {
 			close(rs);

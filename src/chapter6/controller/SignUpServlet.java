@@ -33,7 +33,6 @@ public class SignUpServlet extends HttpServlet {
 	public SignUpServlet() {
 		InitApplication application = InitApplication.getInstance();
 		application.init();
-
 	}
 
 	@Override
@@ -49,7 +48,6 @@ public class SignUpServlet extends HttpServlet {
 	@Override
 	protected void doPost(HttpServletRequest request, HttpServletResponse response)
 			throws IOException, ServletException {
-
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
@@ -92,11 +90,9 @@ public class SignUpServlet extends HttpServlet {
 		String account = user.getAccount();
 		String password = user.getPassword();
 		String email = user.getEmail();
-
 		if (!StringUtils.isEmpty(name) && (20 < name.length())) {
 			errorMessages.add("名前は20文字以下で入力してください");
 		}
-
 		if (StringUtils.isEmpty(account)) {
 			errorMessages.add("アカウント名を入力してください");
 		} else if (20 < account.length()) {

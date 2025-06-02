@@ -41,7 +41,6 @@ public class UserService {
 			// パスワード暗号化
 			String encPassword = CipherUtil.encrypt(user.getPassword());
 			user.setPassword(encPassword);
-
 			connection = getConnection();
 			new UserDao().insert(connection, user);
 			commit(connection);
@@ -67,11 +66,9 @@ public class UserService {
 		try {
 			// パスワード暗号化
 			String encPassword = CipherUtil.encrypt(password);
-
 			connection = getConnection();
 			User user = new UserDao().select(connection, accountOrEmail, encPassword);
 			commit(connection);
-
 			return user;
 		} catch (RuntimeException e) {
 			rollback(connection);
@@ -95,7 +92,6 @@ public class UserService {
 			connection = getConnection();
 			User user = new UserDao().select(connection, userId);
 			commit(connection);
-
 			return user;
 		} catch (RuntimeException e) {
 			rollback(connection);
@@ -111,7 +107,6 @@ public class UserService {
 	}
 	//アカウント重複の確認を受け渡すメソッド
 	public User select(String account) {
-
 		Connection connection = null;
 		try {
 			connection = getConnection();
@@ -140,7 +135,6 @@ public class UserService {
 				String encPassword = CipherUtil.encrypt(user.getPassword());
 				user.setPassword(encPassword);
 			}
-
 			connection = getConnection();
 			new UserDao().update(connection, user);
 			commit(connection);

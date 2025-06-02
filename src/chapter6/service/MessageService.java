@@ -37,7 +37,7 @@ public class MessageService {
 	//ここを参考にdeleteメソッドを作成
 	public void insert(Message message) {
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
-		" : " + new Object(){}.getClass().getEnclosingMethod().getName());
+				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
 		Connection connection = null;
 		try {
@@ -74,7 +74,6 @@ public class MessageService {
 			connection = getConnection();
 			List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM);
 			commit(connection);
-
 			return messages;
 		} catch (RuntimeException e) {
 			rollback(connection);
@@ -120,7 +119,6 @@ public class MessageService {
 			connection = getConnection();
 			Message message = new MessageDao().editSelect(connection, editMessageId);
 			commit(connection);
-
 			return message;
 		} catch (RuntimeException e) {
 			rollback(connection);

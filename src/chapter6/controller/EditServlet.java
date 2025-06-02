@@ -48,7 +48,6 @@ public class EditServlet extends HttpServlet {
 			response.sendRedirect("./");
 			return;
 		}
-
 		int intMessageId = Integer.parseInt(strMessageId);
 		Message message = new MessageService().editSelect(intMessageId);
 		if (StringUtils.isBlank(message.getText())) {
@@ -76,7 +75,6 @@ public class EditServlet extends HttpServlet {
 			return;
 		}
 		int id = Integer.parseInt(strMessageId);
-
 		//Messageクラスからメッセージ情報を受け取るインスタンスを生成
 		Message message = new Message();
 		message.setText(text);
@@ -88,7 +86,6 @@ public class EditServlet extends HttpServlet {
 			request.getRequestDispatcher("edit.jsp").forward(request, response);
 			return;
 		}
-		//new MessageService().edit(message);
 		response.sendRedirect("./");
 	}
 
