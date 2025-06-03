@@ -32,7 +32,6 @@ public class TopServlet extends HttpServlet {
 	public TopServlet() {
 		InitApplication application = InitApplication.getInstance();
 		application.init();
-
 	}
 
 	@Override

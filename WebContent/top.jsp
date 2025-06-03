@@ -103,6 +103,15 @@
 							</form>
 						</div>
 					</c:if>
+					<div class="comments-area">
+						<c:if test="${ isShowMessageForm }">
+							<form action="comment" method="post">
+								<br /><input name="commentMessage_id" value="${message.id}" id="commentMessage_id" type="hidden" />
+								<textarea name="comment" cols="100" rows="5" class="tweet-box"></textarea>
+								<br /> <input type="submit" value="返信">（140文字まで）
+							</form>
+						</c:if>
+					</div>
 				</div>
 			</c:forEach>
 		</div>

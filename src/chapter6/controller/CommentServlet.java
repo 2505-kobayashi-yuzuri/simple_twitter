@@ -14,13 +14,13 @@ import javax.servlet.http.HttpSession;
 
 import org.apache.commons.lang.StringUtils;
 
-import chapter6.beans.Message;
+import chapter6.beans.Comment;
 import chapter6.beans.User;
 import chapter6.logging.InitApplication;
-import chapter6.service.MessageService;
+import chapter6.service.CommentService;
 
-@WebServlet(urlPatterns = { "/message" })
-public class MessageSrevlet extends HttpServlet {
+@WebServlet(urlPatterns = { "/comment" })
+public class CommentServlet extends HttpServlet {
 
 
 	/**
@@ -32,10 +32,9 @@ public class MessageSrevlet extends HttpServlet {
 	 * デフォルトコンストラクタ
 	 * アプリケーションの初期化を実施する。
 	 */
-	public MessageSrevlet() {
+	public CommentServlet() {
 		InitApplication application = InitApplication.getInstance();
 		application.init();
-
 	}
 	//メッセージをPOSTから受け取り処理するメソッド
 	@Override
@@ -47,21 +46,25 @@ public class MessageSrevlet extends HttpServlet {
 		//セッションスコープの宣言（セッションを閉じない限り保持）
 		HttpSession session = request.getSession();
 		List<String> errorMessages = new ArrayList<String>();
+		Comment comment = new Comment();
 		//isVAlidがfalseならif文で処理を終える
-		String text = request.getParameter("text");
+		String text = request.getParameter("comment");
 		if (!isValid(text, errorMessages)) {
 			session.setAttribute("errorMessages", errorMessages);
 			response.sendRedirect("./");
 			return;
 		}
-		//Messageクラスからメッセージ情報を受け取るインスタンスを生成
-		Message message = new Message();
-		message.setText(text);
-		//Userからユーザー情報（loginUser）を引数で保持してuser変数に格納
+		//UserのIDを引き出すためにUserオブジェクトを呼び出し
+		//MessageのIDを引き出すためにMessageオブジェクトを呼び出し
+		String strMessageId = request.getParameter("commentMessage_id");
+		int messageId = Integer.parseInt(strMessageId);
 		User user = (User) session.getAttribute("loginUser");
-		message.setUserId(user.getId());
-		//messageServiceクラスのInsertメソッドを呼び出し（messageを渡す）
-		new MessageService().insert(message);
+		//UserIdとMessageIdを格納
+		comment.setText(text);
+		comment.setUserId(user.getId());
+		comment.setMessageId(messageId);
+		//commentServiceクラスのInsertメソッドを呼び出し（commentを渡す）
+		new CommentService().insert(comment);
 		response.sendRedirect("./");//top.jspに戻る
 	}
 	//エラー処理のバリデーションとエラーlistを作成メソッド
