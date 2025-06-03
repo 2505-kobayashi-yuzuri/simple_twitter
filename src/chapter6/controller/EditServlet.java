@@ -46,7 +46,7 @@ public class EditServlet extends HttpServlet {
 		String strMessageId = request.getParameter("editMessage_id");
 		HttpSession session = request.getSession();
 
-		if (!strMessageId.matches("^[0-9]+$") && StringUtils.isBlank(strMessageId)) {
+		if (!strMessageId.matches("^[0-9]+$") || StringUtils.isBlank(strMessageId)) {
 			session.setAttribute("errorMessageId", errorMessageId);
 			response.sendRedirect("./");
 			return;
