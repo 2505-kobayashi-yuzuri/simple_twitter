@@ -78,8 +78,8 @@ public class EditServlet extends HttpServlet {
 		int intMessageId = Integer.parseInt(strMessageId);
 		message.setId(intMessageId);
 		if (!isValid(text, errorMessages)) {
-			request.setAttribute("errorMessages", errorMessages);
 			request.setAttribute("editMessage", message);
+			request.setAttribute("errorMessages", errorMessages);
 			request.getRequestDispatcher("edit.jsp").forward(request, response);
 			return;
 		}
