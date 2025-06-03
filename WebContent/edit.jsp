@@ -45,8 +45,7 @@
 		<div class="form-area">
 			<form action="edit" method="post">
 				つぶやきの編集<br />
-				<input name="editMessage_id" value="${editMessage.id}" id="editMessage_id" type="hidden" />
-				<textarea name="text" cols="100" rows="5" class="tweet-box"><c:out value="${editMessage.text}" /><c:out value="${errorText}" /></textarea>
+				<textarea name="text" cols="100" rows="5" class="tweet-box"><c:out value="${editMessage.text}" /><c:out value="${errorMessage}" /></textarea>
 				<br /><input type="submit" value="更新">（140文字まで）
 				<br /><input name="editMessage_id" value="${editMessage.id}" id="editMessage_id" type="hidden" />
 				<a href="./">戻る</a>

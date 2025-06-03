@@ -73,17 +73,17 @@ public class EditServlet extends HttpServlet {
 		List<String> errorMessages = new ArrayList<String>();
 		String text = request.getParameter("text");
 		String strMessageId = request.getParameter("editMessage_id");
+		Message message = new Message();
+		message.setText(text);
+		int intMessageId = Integer.parseInt(strMessageId);
+		message.setId(intMessageId);
 		if (!isValid(text, errorMessages)) {
 			request.setAttribute("errorMessages", errorMessages);
-			request.setAttribute("errorText", text);
+			request.setAttribute("editMessage", message);
 			request.getRequestDispatcher("edit.jsp").forward(request, response);
 			return;
 		}
-		int id = Integer.parseInt(strMessageId);
 		//Messageクラスからメッセージ情報を受け取るインスタンスを生成
-		Message message = new Message();
-		message.setText(text);
-		message.setId(id);
 		new MessageService().editMessage(message);
 		response.sendRedirect("./");
 	}
