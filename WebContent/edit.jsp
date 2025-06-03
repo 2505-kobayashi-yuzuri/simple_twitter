@@ -11,32 +11,30 @@
 </head>
 <body>
 	<div class="main-contents">
-	<div class="header">
-				<a href="./">ホーム</a>
-				<a href="setting">設定</a>
-				<a href="logout">ログアウト</a>
+		<div class="header">
+			<a href="./">ホーム</a>
+			<a href="setting">設定</a>
+			<a href="logout">ログアウト</a>
 		</div>
 		<div class="profile">
-				<div class="name">
-					<h2>
-						<c:out value="${loginUser.name}" />
-					</h2>
-				</div>
-				<div class="account">
-					@
-					<c:out value="${loginUser.account}" />
-				</div>
-				<div class="description">
-					<c:out value="${loginUser.description}" />
-				</div>
+			<div class="name">
+				<h2><c:out value="${loginUser.name}" /></h2>
 			</div>
+			<div class="account">
+				@
+				<c:out value="${loginUser.account}" />
+			</div>
+			<div class="description">
+				<c:out value="${loginUser.description}" />
+			</div>
+		</div>
 	<!-- プロフィール、ヘッダーの -->
 		<c:if test="${ not empty errorMessages }">
 			<div class="errorMessages">
 				<ul>
 					<c:forEach items="${errorMessages}" var="errorMessage">
-						<li><c:out value="${errorMessage}" /> <c:remove
-								var="errorMessages" scope="session" />
+						<li><c:out value="${errorMessage}" />
+						<c:remove var="errorMessages" scope="session" />
 					</c:forEach>
 				</ul>
 			</div>
@@ -45,7 +43,7 @@
 		<div class="form-area">
 			<form action="edit" method="post">
 				つぶやきの編集<br />
-				<textarea name="text" cols="100" rows="5" class="tweet-box"><c:out value="${editMessage.text}" /><c:out value="${errorMessage}" /></textarea>
+				<textarea name="text" cols="100" rows="5" class="tweet-box"><c:out value="${editMessage.text}" /></textarea>
 				<br /><input type="submit" value="更新">（140文字まで）
 				<br /><input name="editMessage_id" value="${editMessage.id}" id="editMessage_id" type="hidden" />
 				<a href="./">戻る</a>
