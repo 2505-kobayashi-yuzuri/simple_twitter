@@ -103,7 +103,7 @@
 							</form>
 						</div>
 					</c:if>
-					<div class="comments-area">
+					<!-- <div class="comments-area">-->
 						<c:if test="${ isShowMessageForm }">
 							<form action="comment" method="post">
 								<br /><input name="commentMessage_id" value="${message.id}" id="commentMessage_id" type="hidden" />
@@ -111,7 +111,7 @@
 								<br /> <input type="submit" value="返信">（140文字まで）
 							</form>
 						</c:if>
-					</div>
+					<!--</div> -->
 
 					<!-- 返信の表示 -->
 					<c:forEach items="${comments}" var="comment">

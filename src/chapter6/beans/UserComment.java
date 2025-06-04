@@ -1,9 +1,8 @@
 package chapter6.beans;
 
-import java.io.Serializable;
 import java.util.Date;
 
-public class UserComment implements Serializable {
+public class UserComment {
 
 	private int id;
 	private String account;
@@ -37,7 +36,7 @@ public class UserComment implements Serializable {
 	public void setUserId(int userId) {
 		this.userId = userId;
 	}
-	public int getMessgaeId() {
+	public int getMessageId() {
 		return messageId;
 	}
 	public void setMessageId(int messageId) {

@@ -64,7 +64,7 @@ public class LoginServlet extends HttpServlet {
 		}
 		//セッションスコープにログイン情報をセット
 		HttpSession session = request.getSession();
-		//loginUserがUserオブジェクトのキーになる
+		//すべてのサーブレットにあるloginUserにuserの値を渡す
 		session.setAttribute("loginUser", user);
 		//top.jspに帰る
 		response.sendRedirect("./");
