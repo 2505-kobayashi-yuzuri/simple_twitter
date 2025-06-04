@@ -60,6 +60,15 @@
 			</div>
 		</c:if>
 
+		<!-- 日付の絞り込み -->
+		<c:if test="${ not empty loginUser }">
+			日付：
+		 	<input type="date" id="startDate" name="startDate" value="年/月/日" min="2020-01-01" max="2030-12-31" />
+		 	～
+		 	<input type="date" id="startDate" name="startDate" value="年/月/日" min="2020-01-01" max="2030-12-31" />
+		 	<input type="submit" value="絞り込み">
+		 	</ br>
+		 </c:if>
 		<!-- ログイン中はつぶやくテキストボックスとボタンを表示 -->
 		<div class="form-area">
 			<c:if test="${ isShowMessageForm }">

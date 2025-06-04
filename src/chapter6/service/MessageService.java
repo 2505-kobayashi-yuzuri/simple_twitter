@@ -71,8 +71,12 @@ public class MessageService {
 			if(!StringUtils.isEmpty(userId)) {
 				id = Integer.parseInt(userId);
 			}
+//			String defaultStert = "2020-01-01 00:00:00";
+//			Date nowDate = new Date();
+//			SimpleDateFormat simpleDefaultEnd= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+//			String defaultEnd = simpleDefaultEnd.format(nowDate);
 			connection = getConnection();
-			List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM);
+			List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM);//, defaultStert, defaultEnd);
 			commit(connection);
 			return messages;
 		} catch (RuntimeException e) {
