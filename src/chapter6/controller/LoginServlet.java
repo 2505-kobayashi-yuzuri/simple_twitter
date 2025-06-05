@@ -56,9 +56,9 @@ public class LoginServlet extends HttpServlet {
 		//serviceからユーザー情報を取得できればトップ画面に、でなければエラー
 		User user = new UserService().select(accountOrEmail, password);
 		if (user == null) {
-			List<String> errorMessages = new ArrayList<String>();
-			errorMessages.add("ログインに失敗しました");
-			request.setAttribute("errorMessages", errorMessages);
+			List<String> loginErrorMessages = new ArrayList<String>();
+			loginErrorMessages.add("ログインに失敗しました");
+			request.setAttribute("loginErrorMessages", loginErrorMessages);
 			request.getRequestDispatcher("login.jsp").forward(request, response);
 			return;
 		}

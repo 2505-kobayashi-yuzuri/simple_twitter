@@ -11,11 +11,11 @@
 </head>
 <body>
 	<div class="main-contents">
-		<c:if test="${ not empty errorMessages }">
+		<c:if test="${ not empty loginErrorMessages }">
 			<div class="errorMessages">
 				<ul>
-					<c:forEach items="${errorMessages}" var="errorMessage">
-						<li><c:out value="${errorMessage}" />
+					<c:forEach items="${loginErrorMessages}" var="loginErrorMessage">
+						<li><c:out value="${loginErrorMessage}" />
 					</c:forEach>
 				</ul>
 			</div>

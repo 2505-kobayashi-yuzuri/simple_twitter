@@ -61,13 +61,13 @@
 		</c:if>
 
 		<!-- 日付の絞り込み -->
-			<form action="./" method="get">
-				日付：
-		 		<input type="date" id="startDate" name="startDate" value="年/月/日" min="2020-01-01" max="2030-12-31" />
-		 		～
-		 		<input type="date" id="endDate" name="endDate" value="年/月/日" min="2020-01-01" max="2030-12-31" />
-		 		<input type="submit" value="絞り込み">
-		 		</form>
+		<form action="./" method="get">
+			日付：
+		 	<input type="date"  name="startDate" value="${startDate}" min="2020-01-01" max="2100-12-31" />
+		 	～
+		 	<input type="date"  name="endDate" value="${endDate}" min="2020-01-01" max="2100-12-31" />
+		 	<input type="submit" value="絞り込み">
+		 </form>
 		<!-- ログイン中はつぶやくテキストボックスとボタンを表示 -->
 		<div class="form-area">
 			<c:if test="${ isShowMessageForm }">

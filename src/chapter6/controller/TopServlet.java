@@ -48,9 +48,13 @@ public class TopServlet extends HttpServlet {
 		if (user != null) {
 			isShowMessageForm = true;
 		}
-		String startDate = request.getParameter("startDate"); //初期はnull
-		String endDate = request.getParameter("endDate"); //初期はnull
-		String userId = request.getParameter("user_id"); //初期はnull
+
+		String startDate = request.getParameter("startDate");
+		String endDate = request.getParameter("endDate");
+		String userId = request.getParameter("user_id");
+		//日付をJSP残しておく箇所
+		request.setAttribute("startDate", startDate);
+		request.setAttribute("endDate", endDate);
 		List<UserMessage> messages = new MessageService().select(userId, startDate, endDate);
 		List<UserComment> comments = new CommentService().select();
 		request.setAttribute("messages", messages);

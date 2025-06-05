@@ -74,21 +74,22 @@ public class MessageService {
 			if(!StringUtils.isEmpty(userId)) {
 				id = Integer.parseInt(userId);
 			}
-		String defaultStartDate = "2020-01-01 00:00:00";
+			String defaultStartDate = "2020-01-01 00:00:00";
+			//現在の時間を取得
 			Date nowDate = new Date();
 			SimpleDateFormat simpleDefaultEnd= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 			String defaultEndDate = simpleDefaultEnd.format(nowDate);
-
-			if(startDate != null) {
-				setStartDate = startDate + " 00:00:00";
-			} else {
+			//入力があれば入力値を格納、なければディフォルト値を格納
+			if(StringUtils.isBlank(startDate)) {
 				setStartDate = defaultStartDate;
+			} else {
+				setStartDate = startDate + " 00:00:00";
 			}
 
-			if(endDate != null) {
-				setEndDate = endDate + " 23:59:59";
-			} else {
+			if(StringUtils.isBlank(endDate)) {
 				setEndDate = defaultEndDate;
+			} else {
+				setEndDate = endDate + " 23:59:59";
 			}
 			connection = getConnection();
 			List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM, setStartDate, setEndDate);
