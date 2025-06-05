@@ -25,12 +25,13 @@ public class LoginFilter implements Filter {
 		HttpServletRequest filterRequest = (HttpServletRequest)request;
 		HttpServletResponse filterResponse = (HttpServletResponse)response;
 		HttpSession session = filterRequest.getSession();
-		List<String> loginErrorMessages = new ArrayList<String>();
+		//if文の中で宣言
 		User user = (User) session.getAttribute("loginUser");
 		//ログイン情報がなければログイン画面へ
 		if (user != null) {
 			chain.doFilter(request, response);
 		} else {
+			List<String> loginErrorMessages = new ArrayList<String>();
 			loginErrorMessages.add("ログインしてください");
 			session.setAttribute("loginErrorMessages", loginErrorMessages);
 			filterResponse.sendRedirect("./login");

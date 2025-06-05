@@ -67,27 +67,24 @@ public class MessageService {
 
 		final int LIMIT_NUM = 1000;
 		Connection connection = null;
-		String setStartDate = null;
-		String setEndDate = null;
 		try {
 			Integer id = null;
 			if(!StringUtils.isEmpty(userId)) {
 				id = Integer.parseInt(userId);
 			}
-			String defaultStartDate = "2020-01-01 00:00:00";
-			//現在の時間を取得
-			Date nowDate = new Date();
-			SimpleDateFormat simpleDefaultEnd= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-			String defaultEndDate = simpleDefaultEnd.format(nowDate);
+			String setStartDate = null;
+			String setEndDate = null;
 			//入力があれば入力値を格納、なければディフォルト値を格納
 			if(StringUtils.isBlank(startDate)) {
-				setStartDate = defaultStartDate;
+				setStartDate = "2020-01-01 00:00:00";
 			} else {
 				setStartDate = startDate + " 00:00:00";
 			}
 
 			if(StringUtils.isBlank(endDate)) {
-				setEndDate = defaultEndDate;
+				Date nowDate = new Date();
+				SimpleDateFormat simpleDefaultEnd= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+				setEndDate = simpleDefaultEnd.format(nowDate);
 			} else {
 				setEndDate = endDate + " 23:59:59";
 			}

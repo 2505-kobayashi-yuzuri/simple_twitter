@@ -203,7 +203,7 @@ public class UserDao {
 				sql.append("    password = ?, ");
 			}
 			sql.append("    description = ?, ");
-			sql.append("    updated_date = UPDATE_TIMESTAMP ");
+			sql.append("    updated_date = CURRENT_TIMESTAMP ");
 			sql.append("WHERE id = ?");
 
 			ps = connection.prepareStatement(sql.toString());
