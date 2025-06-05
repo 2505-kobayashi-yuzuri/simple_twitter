@@ -4,6 +4,8 @@ import static chapter6.utils.CloseableUtil.*;
 import static chapter6.utils.DBUtil.*;
 
 import java.sql.Connection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -58,25 +60,38 @@ public class MessageService {
 		}
 	}
 	//つぶやき情報の表示を受け渡すメソッド
-	public List<UserMessage> select(String userId) {
+	public List<UserMessage> select(String userId, String startDate ,String endDate) {
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
 
 		final int LIMIT_NUM = 1000;
-
 		Connection connection = null;
+		String setStartDate = null;
+		String setEndDate = null;
 		try {
 			Integer id = null;
 			if(!StringUtils.isEmpty(userId)) {
 				id = Integer.parseInt(userId);
 			}
-//			String defaultStert = "2020-01-01 00:00:00";
-//			Date nowDate = new Date();
-//			SimpleDateFormat simpleDefaultEnd= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-//			String defaultEnd = simpleDefaultEnd.format(nowDate);
+		String defaultStartDate = "2020-01-01 00:00:00";
+			Date nowDate = new Date();
+			SimpleDateFormat simpleDefaultEnd= new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+			String defaultEndDate = simpleDefaultEnd.format(nowDate);
+
+			if(startDate != null) {
+				setStartDate = startDate + " 00:00:00";
+			} else {
+				setStartDate = defaultStartDate;
+			}
+
+			if(endDate != null) {
+				setEndDate = endDate + " 23:59:59";
+			} else {
+				setEndDate = defaultEndDate;
+			}
 			connection = getConnection();
-			List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM);//, defaultStert, defaultEnd);
+			List<UserMessage> messages = new UserMessageDao().select(connection, id, LIMIT_NUM, setStartDate, setEndDate);
 			commit(connection);
 			return messages;
 		} catch (RuntimeException e) {

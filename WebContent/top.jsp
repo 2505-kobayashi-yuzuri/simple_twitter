@@ -61,14 +61,13 @@
 		</c:if>
 
 		<!-- 日付の絞り込み -->
-		<c:if test="${ not empty loginUser }">
-			日付：
-		 	<input type="date" id="startDate" name="startDate" value="年/月/日" min="2020-01-01" max="2030-12-31" />
-		 	～
-		 	<input type="date" id="startDate" name="startDate" value="年/月/日" min="2020-01-01" max="2030-12-31" />
-		 	<input type="submit" value="絞り込み">
-		 	</ br>
-		 </c:if>
+			<form action="./" method="get">
+				日付：
+		 		<input type="date" id="startDate" name="startDate" value="年/月/日" min="2020-01-01" max="2030-12-31" />
+		 		～
+		 		<input type="date" id="endDate" name="endDate" value="年/月/日" min="2020-01-01" max="2030-12-31" />
+		 		<input type="submit" value="絞り込み">
+		 		</form>
 		<!-- ログイン中はつぶやくテキストボックスとボタンを表示 -->
 		<div class="form-area">
 			<c:if test="${ isShowMessageForm }">
@@ -112,15 +111,6 @@
 							</form>
 						</div>
 					</c:if>
-					<!-- <div class="comments-area">-->
-						<c:if test="${ isShowMessageForm }">
-							<form action="comment" method="post">
-								<br /><input name="commentMessage_id" value="${message.id}" id="commentMessage_id" type="hidden" />
-								<textarea name="comment" cols="100" rows="5" class="tweet-box"></textarea>
-								<br /> <input type="submit" value="返信">（140文字まで）
-							</form>
-						</c:if>
-					<!--</div> -->
 
 					<!-- 返信の表示 -->
 					<c:forEach items="${comments}" var="comment">
@@ -141,7 +131,15 @@
 							</div>
 						</c:if>
 					</c:forEach>
-
+					<!-- 返信テキストボックス -->
+					<c:if test="${ isShowMessageForm }">
+						<form action="comment" method="post">
+							<br /><input name="commentMessage_id" value="${message.id}" id="commentMessage_id" type="hidden" />
+							<textarea name="comment" cols="100" rows="5" class="tweet-box"></textarea>
+							<br /> <input type="submit" value="返信">（140文字まで）
+						</form>
+					</c:if>
+					<!--</div> -->
 				</div>
 			</c:forEach>
 		</div>

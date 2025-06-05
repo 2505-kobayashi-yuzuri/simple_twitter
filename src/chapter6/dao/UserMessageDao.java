@@ -32,7 +32,7 @@ public class UserMessageDao {
 
 	}
 
-	public List<UserMessage> select(Connection connection,Integer id, int num){//, String stert, String end) {
+	public List<UserMessage> select(Connection connection,Integer id, int num, String start, String end) {
 
 		log.info(new Object(){}.getClass().getEnclosingClass().getName() +
 				" : " + new Object(){}.getClass().getEnclosingMethod().getName());
@@ -50,22 +50,20 @@ public class UserMessageDao {
 			sql.append("FROM messages ");
 			sql.append("INNER JOIN users ");
 			sql.append("ON messages.user_id = users.id ");
-//			sql.append("WHERE messages.created_date ");
-//			sql.append("BETWEEN '?' ");
-//			sql.append("AND '?' ");
+			sql.append("WHERE messages.created_date ");
+			sql.append("BETWEEN  ?  ");
+			sql.append("AND ? ");
 			if(id != null) {
-				sql.append("WHERE user_id = ? ");
+				sql.append("AND user_id = ? ");
 			}
 			sql.append("ORDER BY created_date DESC limit " + num);
 			ps = connection.prepareStatement(sql.toString());
+			ps.setString(1, start);
+			ps.setString(2, end);
+
 			if(id != null) {
-				//ps.setString(1, stert);
-				//ps.setString(2, end);
-				ps.setInt(1, id);
-			} //else {
-				//ps.setString(1, stert);
-				//ps.setString(2, end);
-			//}
+				ps.setInt(3, id);
+			}
 
 			ResultSet rs = ps.executeQuery();
 			List<UserMessage> messages = toUserMessages(rs);
