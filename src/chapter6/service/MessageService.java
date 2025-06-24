@@ -3,20 +3,30 @@ package chapter6.service;
 import static chapter6.utils.CloseableUtil.*;
 import static chapter6.utils.DBUtil.*;
 
+import java.io.File;
 import java.sql.Connection;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.commons.lang.StringUtils;
+import org.dbunit.Assertion;
+import org.dbunit.database.DatabaseConnection;
+import org.dbunit.database.IDatabaseConnection;
+import org.dbunit.dataset.IDataSet;
+import org.dbunit.dataset.ITable;
+import org.dbunit.dataset.xml.FlatXmlDataSet;
+import org.junit.Test;
 
 import chapter6.beans.Message;
 import chapter6.beans.UserMessage;
 import chapter6.dao.MessageDao;
 import chapter6.dao.UserMessageDao;
 import chapter6.logging.InitApplication;
+import chapter6.utils.DBUtil;
 
 public class MessageService {
 
@@ -170,6 +180,59 @@ public class MessageService {
 			throw e;
 		} finally {
 			close(connection);
+		}
+	}
+
+
+	@Test
+	public void testInsertMessage() throws Exception {
+
+		List<Message> insertMessagesList = new ArrayList<>();
+
+		//テストのインスタンスを生成
+		Message message001 = new Message();
+		message001.setText("テストデータ004");
+		message001.setUserId(1);
+		insertMessagesList.add(message001);
+
+		Message message002 = new Message();
+		message002.setText("テストデータ005");
+		message002.setUserId(2);
+		insertMessagesList.add(message002);
+
+		Message message003 = new Message();
+		message003.setText("テストデータ006");
+		message003.setUserId(3);
+		insertMessagesList.add(message003);
+
+		MessageService messageService = new MessageService();
+
+		for(int i = 0; i < insertMessagesList.size(); i++) {
+			messageService.insert(insertMessagesList.get(i));
+		}
+
+		//データ
+		IDatabaseConnection connection = null;
+		try {
+			Connection conn = DBUtil.getConnection();
+			connection = new DatabaseConnection(conn);
+			//メソッド実行した実際のテーブル
+			IDataSet databaseDataSet = connection.createDataSet();
+			ITable actualTable = databaseDataSet.getTable("messages");
+			// テスト結果として期待されるべきテーブルデータを表すITableインスタンス
+			IDataSet expectedDataSet = new FlatXmlDataSet(new
+					File("messages_data_insert.xml"));
+
+			ITable expectedTable = expectedDataSet.getTable("messages");
+
+			//期待されるITableと実際のITableの比較
+			//id、created_date、updated_dateを除いたデータを確認
+			Assertion.assertEqualsIgnoreCols(actualTable, expectedTable, new
+					String[] {"id",  "created_date", "updated_date"});
+
+		} finally {
+			if (connection != null)
+				connection.close();
 		}
 	}
 }
